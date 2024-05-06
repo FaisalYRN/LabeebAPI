@@ -73,6 +73,7 @@ while cap.isOpened():
     if not ret:
         break
     
+    frame = cv2.resize(frame, (640, 480))
     img = Image.fromarray(frame)
     draw = ImageDraw.Draw(img)
     image_with_text = np.array(img)
