@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arabic Alphabet Recognition</title>
+</head>
+
+<body>
+    <h1>Arabic Text Recognition System</h1>
+
+    <img id="video_feed" src="{{ url_for('video_feed') }}" style="width: 50%;">
+
+    <button onclick="sendKeyPress('v', '')">Press 'v' for Word Recognition</button>
+    <button onclick="sendKeyPress('r')">Press 'r' for Action Recognition</button>
+    <button onclick="sendKeyPress('s', '')">Press 's' for Sentence Recognition</button>
+
+    <!-- <button id="wordButton" onmousedown="startKeyPress('v')" onmouseup="endKeyPress()">Press and Hold 'v' for Word Recognition</button>
+    <button id="actionButton" onmousedown="startKeyPress('r')" onmouseup="endKeyPress()">Press and Hold 'r' for Action Recognition</button>
+    <button id="sentenceButton" onmousedown="startKeyPress('s')" onmouseup="endKeyPress()">Press and Hold 's' for Sentence Recognition</button> -->
+
+    <script>
+
+        // let keyTimer;
+        // let keyData = '';
+
+        // function startKeyPress(key) {
+        //     keyTimer = setTimeout(() => {
+        //         sendKeyPress(key, keyData);
+        //     }, 2000); // Change the delay time (in milliseconds) as needed
+        // }
+
+        // function endKeyPress() {
+        //     clearTimeout(keyTimer);
+        //     keyData = ''; // Reset keyData after the button is released
+        // }
+        // Display the word on the frame for 3 seconds
+
+        function sendKeyPress(key, word, sentence) {
+            
+                    fetch('/keypress', {
+                        method: 'POST',
+                        body: new URLSearchParams({
+                            key: key,
+                            word: word, // Replace with actual word or sentence
+                            sentence: sentence
+                        }),
+                        headers: {
+                            'Content-Type': 'application/x-www-form-urlencoded'
+                        }
+                    });
+                }
+
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'w') {
+                fetch('/keypress', {
+                    method: 'POST',
+                    body: new URLSearchParams({
+                        key: 'w',
+                        word: '' // Replace with actual word
+                    }),
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded'
+                    }
+                });
+            } else if (event.key === 'r') {
+                fetch('/keypress', {
+                    method: 'POST',
+                    body: new URLSearchParams({
+                        key: 'r'
+                    }),
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded'
+                    }
+                });
+            } else if (event.key === 's') {
+                fetch('/keypress', {
+                    method: 'POST',
+                    body: new URLSearchParams({
+                        key: 's',
+                        sentence: '' // Replace with actual sentence
+
+                    }),
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded'
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+
+</html>
