@@ -9,6 +9,7 @@ from utils.general import non_max_suppression
 import torch
 import arabic_reshaper
 from bidi.algorithm import get_display
+import os
 
 
 app = Flask(__name__)
